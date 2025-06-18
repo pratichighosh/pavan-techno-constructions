@@ -16,6 +16,7 @@ const ContactPage = () => {
   });
 
   const sectionRef = useRef(null);
+  const headingRef = useRef(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -23,6 +24,9 @@ const ContactPage = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('section-visible');
+            if (headingRef.current) {
+              headingRef.current.classList.add('heading-visible');
+            }
           }
         });
       },
@@ -114,6 +118,14 @@ const ContactPage = () => {
         </div>
 
         <div className="container">
+          <div className="section-title">
+            <div className="heading-container" ref={headingRef}>
+              <h1 className="main-heading">GET IN TOUCH</h1>
+              <div className="heading-underline"></div>
+              <p className="heading-subtitle">We'd Love to Hear From You</p>
+            </div>
+          </div>
+          
           <div className="form-wrapper">
             <div className="contact-form-container">
               <div className="form-header">
@@ -184,7 +196,7 @@ const ContactPage = () => {
                     name="message"
                     id="message"
                     placeholder="Tell us about your project requirements"
-                    rows="3"
+                    rows="5"
                     value={formData.message}
                     onChange={handleChange}
                   ></textarea>
@@ -225,6 +237,17 @@ const ContactPage = () => {
           100% { transform: rotate(360deg); }
         }
 
+        @keyframes titleSlideUp {
+          0% {
+            transform: translateY(30px);
+            opacity: 0;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
         @keyframes fadeIn {
           0% { opacity: 0; }
           100% { opacity: 1; }
@@ -242,7 +265,7 @@ const ContactPage = () => {
         }
 
         .contact-page {
-          padding: 3rem 0;
+          padding: 8rem 0 6rem;
           background-color: #000000;
           color: #ffffff;
           overflow: hidden;
@@ -250,7 +273,6 @@ const ContactPage = () => {
           min-height: 100vh;
           display: flex;
           align-items: center;
-          justify-content: center;
         }
 
         .animated-background {
@@ -319,20 +341,76 @@ const ContactPage = () => {
         }
 
         .container {
-          max-width: 1200px;
+          max-width: 1400px;
           margin: 0 auto;
           padding: 0 2rem;
           position: relative;
           z-index: 2;
           width: 100%;
         }
+        
+        .section-title {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+        
+        .heading-container {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 1s ease;
+        }
+        
+        .section-visible .heading-container {
+          animation: titleSlideUp 0.8s forwards 0.3s;
+        }
+        
+        .main-heading {
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 900;
+          letter-spacing: 3px;
+          margin-bottom: 1.5rem;
+          color: #ffffff;
+          text-transform: uppercase;
+          position: relative;
+          background: linear-gradient(135deg, #007bff, #B79C5C);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .heading-underline {
+          height: 4px;
+          width: 0;
+          background: linear-gradient(90deg, transparent, #007bff, #B79C5C, transparent);
+          margin: 0 auto;
+          transition: width 1.5s ease 1s;
+          border-radius: 2px;
+        }
+        
+        .heading-visible .heading-underline {
+          width: 120px;
+        }
+        
+        .heading-subtitle {
+          margin-top: 1.5rem;
+          font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+          color: #B79C5C;
+          opacity: 0;
+          transform: translateY(20px);
+          transition: all 0.8s ease 1.5s;
+          font-weight: 300;
+          letter-spacing: 1px;
+        }
+        
+        .heading-visible .heading-subtitle {
+          opacity: 0.9;
+          transform: translateY(0);
+        }
 
         .form-wrapper {
           display: flex;
           justify-content: center;
           opacity: 0;
-          max-width: 600px;
-          margin: 0 auto;
         }
 
         .section-visible .form-wrapper {
@@ -341,13 +419,14 @@ const ContactPage = () => {
 
         .contact-form-container {
           background: linear-gradient(135deg, rgba(0, 123, 255, 0.05), rgba(183, 156, 92, 0.05));
-          padding: 2rem;
+          padding: 3rem;
           border-radius: 20px;
           border: 1px solid rgba(183, 156, 92, 0.2);
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
           backdrop-filter: blur(20px);
           transform: translateY(30px);
           opacity: 0;
+          max-width: 700px;
           width: 100%;
         }
 
@@ -357,33 +436,33 @@ const ContactPage = () => {
 
         .form-header {
           text-align: center;
-          margin-bottom: 1.2rem;
+          margin-bottom: 2.5rem;
         }
 
         .form-header h3 {
-          font-size: 1.6rem;
+          font-size: 1.8rem;
           font-weight: 700;
           color: #007bff;
-          margin-bottom: 0.2rem;
+          margin-bottom: 0.5rem;
           letter-spacing: 1px;
         }
 
         .form-header p {
           color: #B79C5C;
-          font-size: 0.9rem;
+          font-size: 1rem;
           opacity: 0.9;
         }
         
         .contact-form {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 1.8rem;
         }
 
         .form-row {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 1rem;
+          gap: 1.5rem;
         }
         
         .form-group {
@@ -392,10 +471,10 @@ const ContactPage = () => {
 
         .form-group label {
           display: block;
-          margin-bottom: 0.3rem;
+          margin-bottom: 0.8rem;
           color: #B79C5C;
           font-weight: 600;
-          font-size: 0.8rem;
+          font-size: 0.95rem;
           letter-spacing: 0.5px;
           text-transform: uppercase;
         }
@@ -404,8 +483,8 @@ const ContactPage = () => {
         .form-group textarea,
         .form-group select {
           width: 100%;
-          padding: 0.7rem 0.9rem;
-          font-size: 0.9rem;
+          padding: 1rem 1.2rem;
+          font-size: 1rem;
           background: rgba(255, 255, 255, 0.95);
           border: 2px solid rgba(183, 156, 92, 0.2);
           border-radius: 10px;
@@ -438,15 +517,15 @@ const ContactPage = () => {
         }
         
         .form-status {
-          min-height: 30px;
+          min-height: 40px;
           display: flex;
           align-items: center;
         }
         
         .status-message {
-          padding: 0.6rem 0.8rem;
+          padding: 1rem 1.5rem;
           border-radius: 10px;
-          font-size: 0.85rem;
+          font-size: 0.95rem;
           width: 100%;
           text-align: center;
           font-weight: 500;
@@ -469,12 +548,12 @@ const ContactPage = () => {
           align-items: center;
           justify-content: center;
           gap: 0.8rem;
-          padding: 0.8rem 1.8rem;
+          padding: 1.2rem 2.5rem;
           background: linear-gradient(135deg, #007bff, #0056b3);
           color: #ffffff;
           border: none;
           border-radius: 12px;
-          font-size: 0.95rem;
+          font-size: 1.1rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.3s ease;
@@ -482,7 +561,6 @@ const ContactPage = () => {
           text-transform: uppercase;
           position: relative;
           overflow: hidden;
-          margin-top: 0.5rem;
         }
 
         .btn-primary::before {
@@ -521,13 +599,17 @@ const ContactPage = () => {
         @media (max-width: 992px) {
           .form-row {
             grid-template-columns: 1fr;
-            gap: 0.8rem;
+            gap: 1.5rem;
+          }
+          
+          .main-heading {
+            font-size: 2.5rem;
           }
         }
         
         @media (max-width: 768px) {
           .contact-page {
-            padding: 2rem 0;
+            padding: 6rem 0 4rem;
           }
 
           .container {
@@ -535,26 +617,39 @@ const ContactPage = () => {
           }
 
           .contact-form-container {
-            padding: 1.5rem;
+            padding: 2rem;
+          }
+          
+          .main-heading {
+            font-size: 2rem;
+            letter-spacing: 2px;
+          }
+
+          .heading-subtitle {
+            font-size: 1.1rem;
           }
         }
         
         @media (max-width: 576px) {
           .contact-page {
-            padding: 1.5rem 0;
+            padding: 5rem 0 3rem;
           }
 
           .contact-form-container {
-            padding: 1.2rem;
+            padding: 1.5rem;
           }
           
+          .main-heading {
+            font-size: 1.8rem;
+          }
+
           .form-header h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
           }
 
           .btn-primary {
-            padding: 0.7rem 1.5rem;
-            font-size: 0.9rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
           }
 
           /* Disable complex animations on mobile */
@@ -570,6 +665,11 @@ const ContactPage = () => {
 
           .contact-form-container {
             padding: 1rem;
+          }
+
+          .main-heading {
+            font-size: 1.6rem;
+            letter-spacing: 1px;
           }
         }
       `}</style>
