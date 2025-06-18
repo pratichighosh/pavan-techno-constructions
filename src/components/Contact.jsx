@@ -758,7 +758,7 @@ const Contact = () => {
           display: none;
         }
 
-        /* Mobile Responsiveness */
+        /* Improved Mobile Responsiveness */
         @media (max-width: 1200px) {
           .contact-container {
             gap: 3rem;
@@ -768,7 +768,7 @@ const Contact = () => {
         @media (max-width: 992px) {
           .contact-container {
             grid-template-columns: 1fr;
-            gap: 3rem;
+            gap: 2.5rem;
           }
 
           .contact-form-container {
@@ -805,7 +805,7 @@ const Contact = () => {
           }
 
           .contact-form-container {
-            padding: 2rem;
+            padding: 2rem 1.5rem;
           }
           
           .contact-detail-item {
@@ -826,6 +826,12 @@ const Contact = () => {
           .heading-subtitle {
             font-size: 1.1rem;
           }
+          
+          /* Ensure form inputs are properly sized */
+          .form-input, .form-textarea, .form-select {
+            padding: 0.8rem;
+            font-size: 0.9rem;
+          }
         }
         
         @media (max-width: 576px) {
@@ -838,14 +844,11 @@ const Contact = () => {
           }
           
           .contact-detail-item {
-            padding: 1.25rem;
-            flex-direction: column;
-            text-align: center;
-            gap: 1rem;
+            padding: 1.25rem 1rem;
           }
 
           .contact-form-container {
-            padding: 1.5rem;
+            padding: 1.5rem 1.2rem;
           }
           
           .main-heading {
@@ -857,28 +860,50 @@ const Contact = () => {
           }
 
           .btn-primary {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-          }
-
-          /* Disable complex animations on mobile */
-          .floating-shape {
-            display: none;
+            padding: 0.9rem 1.8rem;
+            font-size: 0.95rem;
           }
         }
 
         @media (max-width: 480px) {
           .container {
-            padding: 0 0.5rem;
+            padding: 0 0.8rem;
           }
 
           .contact-form-container {
-            padding: 1rem;
+            padding: 1.2rem 1rem;
           }
 
           .main-heading {
             font-size: 1.6rem;
             letter-spacing: 1px;
+          }
+          
+          .contact-detail-item {
+            padding: 1.1rem 0.9rem;
+          }
+          
+          .form-input, .form-textarea, .form-select {
+            padding: 0.7rem;
+            font-size: 0.85rem;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .container {
+            padding: 0 0.6rem;
+          }
+          
+          .contact-form-container {
+            padding: 1rem 0.8rem;
+          }
+          
+          .main-heading {
+            font-size: 1.4rem;
+          }
+          
+          .heading-subtitle {
+            font-size: 0.9rem;
           }
         }
       `}</style>
